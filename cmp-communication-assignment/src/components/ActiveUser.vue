@@ -1,8 +1,11 @@
 <template>
   <div class="card text-center">
+    <div class="card-header">
+      <h1>Active user</h1>
+    </div>
     <div class="card-body">
-      <h2> {{ user.username }} </h2>
-      <h3> {{ user.age }} </h3>
+      <h2> Username: {{ user.username }} </h2>
+      <h3> Age: {{ user.age }} </h3>
     </div>
   </div>
 </template>

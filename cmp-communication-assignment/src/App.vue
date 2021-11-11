@@ -2,7 +2,7 @@
   <div class="container mt-5">
     <div class="row">
       <active-user :user="user" class="col"></active-user>
-      <user-data class="col"></user-data>
+      <user-data class="col" @change-user="changeUser"></user-data>
     </div>
   </div>
 </template>
@@ -22,6 +22,11 @@ export default defineComponent({
   },
   components: {
     ActiveUser, UserData
+  },
+  methods: {
+    changeUser(user: User) {
+      this.user = user;
+    },
   },
 });
 </script>
