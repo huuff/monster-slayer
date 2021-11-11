@@ -35,6 +35,7 @@
         <h4 v-if="state === 'won'" class="text-success">You won!</h4>
         <h4 v-else-if="state === 'lost'" class="text-danger">You lost!</h4>
         <h4 v-else class="text-secondary">It's a draw!</h4>
+        <button class="btn btn-secondary" @click="reset">PLAY AGAIN</button>
       </div>
       <div class="container bg-light text-center mt-5 w-75 rounded">
         <h3>Battle Log</h3>
@@ -150,6 +151,12 @@ export default defineComponent({
     surrender() {
       this.state = "lost";
     },
+    reset() {
+      this.state = "playing";
+      this.round = 0;
+      this.playerHealth = 100;
+      this.monsterHealth = 100;
+    }
   },
 
 });
