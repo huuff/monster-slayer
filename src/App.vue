@@ -14,13 +14,21 @@
           <div class="progress-bar" :style="{width: playerHealth + '%'}"></div>
         </div>
       </div>
-      <div class="d-flex flex-column align-items-center">
+      <div v-if="state === 'playing'" 
+        class="d-flex flex-column align-items-center"
+      >
         <button class="btn btn-primary btn-lg mb-3" @click="attackMonster">ATTACK</button>
         <button 
           :disabled="round % 3 !== 0"
           class="btn btn-primary btn-lg mb-3" 
           @click="specialAttack"
         >SPECIAL ATTACK</button>
+      </div>
+      <div v-else class="text-center">
+        <h3>Game Over!</h3>
+        <p v-if="state === 'won'" class="text-success">You won!</p>
+        <p v-else-if="state === 'lost'" class="text-danger">You lost!</p>
+        <p v-else class="text-secondary">It's a draw!</p>
       </div>
     </div>
   </main>
@@ -33,6 +41,13 @@ function randomBetween(lower: number, upper: number) {
   return Math.random() * (upper - lower) + lower;
 }
 
+type GameData = {
+  playerHealth: number;
+  monsterHealth: number;
+  round: number;
+  state: "won" | "lost" | "playing" | "draw";
+};
+
 export default defineComponent({
   name: 'App',
   data() {
@@ -40,8 +55,27 @@ export default defineComponent({
       playerHealth: 100,
       monsterHealth: 100,
       round: 0,
+      state: "playing",
+    } as GameData
+  },
+
+  watch: {
+    playerHealth() {
+      if (this.playerHealth <= 0 && this.monsterHealth <= 0) {
+        this.state = "draw";
+      } else if (this.playerHealth <= 0) {
+        this.state = "lost"; 
+      }
+    },
+    monsterHealth() {
+      if (this.monsterHealth <= 0 && this.playerHealth <= 0) {
+        this.state = "draw";
+      } else if (this.monsterHealth <= 0) {
+        this.state = "won"; 
+      }
     }
   },
+
   methods: {
     attackMonster() {
       this.monsterHealth -= randomBetween(8, 12);
