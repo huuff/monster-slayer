@@ -28,6 +28,7 @@
           class="btn btn-primary btn-lg mb-3"
           @click="heal"
         >HEAL </button>
+        <button class="btn btn-danger btn-lg mb-3" @click="surrender">SURRENDER</button>
       </div>
       <div v-else class="text-center">
         <h3 class="display-3">Game Over!</h3>
@@ -145,7 +146,10 @@ export default defineComponent({
     },
     addLog(entry: LogEntry) {
       this.log.unshift(entry);
-    }
+    },
+    surrender() {
+      this.state = "lost";
+    },
   },
 
 });
