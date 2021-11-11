@@ -25,12 +25,12 @@ export default defineComponent({
   data() {
     return {
       username: "",
-      age: 0,
-    };
+      age: null,
+    } as { username: string; age: number | null};
   },
   methods: {
     changeUser() {
-      this.$emit("change-user", new User(this.username, this.age));
+      this.$emit("change-user", {username: this.username, age: this.age});
       this.username = "";
       this.age = 0;
     },

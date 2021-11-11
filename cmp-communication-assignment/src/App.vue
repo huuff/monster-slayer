@@ -17,7 +17,7 @@ export default defineComponent({
   name: 'App',
   data() {
     return {
-      user: new User("Default", 18),
+      user: { username: "default", age: 0} as User,
     };
   },
   components: {
