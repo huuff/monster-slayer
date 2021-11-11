@@ -63,11 +63,9 @@ type GameData = {
   log: LogEntry[];
 };
 
-type LogEntry = {
-  who: Entity;
-  what: Action;
-  value: number;
-};
+class LogEntry {
+  constructor(readonly who: Entity, readonly what: Action, readonly value: number) {}
+}
 
 export default defineComponent({
   name: 'App',
@@ -109,26 +107,26 @@ export default defineComponent({
       const monsterDamage = randomBetween(8, 12);
       this.monsterHealth -= monsterDamage;
       this.attackPlayer();
-      this.addLog({what: 'attack', who: 'player', value: monsterDamage })
+      this.addLog(new LogEntry("player", "attack", monsterDamage));
       this.round++;
     },
     attackPlayer() {
       const playerDamage = randomBetween(10, 14);
       this.playerHealth -= playerDamage;
-      this.addLog({what: 'attack', who: 'monster', value: playerDamage});
+      this.addLog(new LogEntry("monster", "attack", playerDamage));
     },
     specialAttack() {
       const monsterDamage = randomBetween(8, 16);
       this.monsterHealth -= monsterDamage;
       this.attackPlayer();
-      this.addLog({what: 'attack', who: 'player', value: monsterDamage})
+      this.addLog(new LogEntry("player", "attack", monsterDamage));
       this.round++;
     },
     heal() {
-      const healDamage = randomBetween(5, 20);
+      const healDamage = randomBetween(10, 20);
       this.playerHealth += healDamage;
       this.attackPlayer();
-      this.addLog({what: 'heal', who: 'player', value: healDamage});
+      this.addLog(new LogEntry("player", "heal", healDamage));
       this.round++;
     },
     addLog(entry: LogEntry) {
