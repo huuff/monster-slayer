@@ -25,10 +25,10 @@
         >SPECIAL ATTACK</button>
       </div>
       <div v-else class="text-center">
-        <h3>Game Over!</h3>
-        <p v-if="state === 'won'" class="text-success">You won!</p>
-        <p v-else-if="state === 'lost'" class="text-danger">You lost!</p>
-        <p v-else class="text-secondary">It's a draw!</p>
+        <h3 class="display-3">Game Over!</h3>
+        <h4 v-if="state === 'won'" class="text-success">You won!</h4>
+        <h4 v-else-if="state === 'lost'" class="text-danger">You lost!</h4>
+        <h4 v-else class="text-secondary">It's a draw!</h4>
       </div>
     </div>
   </main>
