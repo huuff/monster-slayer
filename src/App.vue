@@ -24,6 +24,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+function randomBetween(lower: number, upper: number) {
+  return Math.random() * (upper - lower) + lower;
+}
+
 export default defineComponent({
   name: 'App',
   data() {
@@ -34,8 +38,12 @@ export default defineComponent({
   },
   methods: {
     attackMonster() {
-      this.monsterHealth -= 10;
+      this.monsterHealth -= randomBetween(8, 12);
+      this.attackPlayer();
     },
+    attackPlayer() {
+      this.playerHealth -= randomBetween(10, 15);
+    }
   },
 
 });

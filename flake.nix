@@ -9,11 +9,11 @@
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
-  in with pkgs; {
-    devShell.${system} = mkShell {
+  in {
+    devShell.${system} = pkgs.mkShell {
       buildInputs = [
-        nodejs
-        nodePackages.npm
+        pkgs.nodejs-17_x
+        pkgs.nodePackages.npm
       ];
     };
   };
