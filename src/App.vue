@@ -23,6 +23,11 @@
           class="btn btn-primary btn-lg mb-3" 
           @click="specialAttack"
         >SPECIAL ATTACK</button>
+        <button
+          :disabled="round % 2 !== 0"
+          class="btn btn-primary btn-lg mb-3"
+          @click="heal"
+        >HEAL </button>
       </div>
       <div v-else class="text-center">
         <h3 class="display-3">Game Over!</h3>
@@ -89,10 +94,15 @@ export default defineComponent({
       this.round++;
     },
     attackPlayer() {
-      this.playerHealth -= randomBetween(10, 15);
+      this.playerHealth -= randomBetween(10, 14);
     },
     specialAttack() {
-      this.monsterHealth -= randomBetween(12, 18);
+      this.monsterHealth -= randomBetween(8, 16);
+      this.attackPlayer();
+      this.round++;
+    },
+    heal() {
+      this.playerHealth += randomBetween(5, 20);
       this.attackPlayer();
       this.round++;
     }
