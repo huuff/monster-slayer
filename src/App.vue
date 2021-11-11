@@ -35,6 +35,12 @@
         <h4 v-else-if="state === 'lost'" class="text-danger">You lost!</h4>
         <h4 v-else class="text-secondary">It's a draw!</h4>
       </div>
+      <div class="container bg-light text-center mt-5 w-75 rounded">
+        <h3>Battle Log</h3>
+        <ul class="list-unstyled">
+          <li v-for="(entry, i) in log" :key="i">{{ JSON.stringify(entry) }}</li>
+        </ul>
+      </div>
     </div>
   </main>
 </template>
@@ -43,14 +49,24 @@
 import { defineComponent } from 'vue';
 
 function randomBetween(lower: number, upper: number) {
-  return Math.random() * (upper - lower) + lower;
+  return Math.floor(Math.random() * (upper - lower) + lower);
 }
+
+type Entity = "player" | "monster";
+type Action = "attack" | "heal";
 
 type GameData = {
   playerHealth: number;
   monsterHealth: number;
   round: number;
   state: "won" | "lost" | "playing" | "draw";
+  log: LogEntry[];
+};
+
+type LogEntry = {
+  who: Entity;
+  what: Action;
+  value: number;
 };
 
 export default defineComponent({
@@ -61,6 +77,7 @@ export default defineComponent({
       monsterHealth: 100,
       round: 0,
       state: "playing",
+      log: [],
     } as GameData
   },
 
@@ -89,22 +106,33 @@ export default defineComponent({
 
   methods: {
     attackMonster() {
-      this.monsterHealth -= randomBetween(8, 12);
+      const monsterDamage = randomBetween(8, 12);
+      this.monsterHealth -= monsterDamage;
       this.attackPlayer();
+      this.addLog({what: 'attack', who: 'player', value: monsterDamage })
       this.round++;
     },
     attackPlayer() {
-      this.playerHealth -= randomBetween(10, 14);
+      const playerDamage = randomBetween(10, 14);
+      this.playerHealth -= playerDamage;
+      this.addLog({what: 'attack', who: 'monster', value: playerDamage});
     },
     specialAttack() {
-      this.monsterHealth -= randomBetween(8, 16);
+      const monsterDamage = randomBetween(8, 16);
+      this.monsterHealth -= monsterDamage;
       this.attackPlayer();
+      this.addLog({what: 'attack', who: 'player', value: monsterDamage})
       this.round++;
     },
     heal() {
-      this.playerHealth += randomBetween(5, 20);
+      const healDamage = randomBetween(5, 20);
+      this.playerHealth += healDamage;
       this.attackPlayer();
+      this.addLog({what: 'heal', who: 'player', value: healDamage});
       this.round++;
+    },
+    addLog(entry: LogEntry) {
+      this.log.unshift(entry);
     }
   },
 
