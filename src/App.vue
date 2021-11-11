@@ -15,7 +15,12 @@
         </div>
       </div>
       <div class="d-flex flex-column align-items-center">
-        <button class="btn btn-primary btn-lg" @click="attackMonster">ATTACK</button>
+        <button class="btn btn-primary btn-lg mb-3" @click="attackMonster">ATTACK</button>
+        <button 
+          :disabled="round % 3 !== 0"
+          class="btn btn-primary btn-lg mb-3" 
+          @click="specialAttack"
+        >SPECIAL ATTACK</button>
       </div>
     </div>
   </main>
@@ -34,15 +39,22 @@ export default defineComponent({
     return {
       playerHealth: 100,
       monsterHealth: 100,
+      round: 0,
     }
   },
   methods: {
     attackMonster() {
       this.monsterHealth -= randomBetween(8, 12);
       this.attackPlayer();
+      this.round++;
     },
     attackPlayer() {
       this.playerHealth -= randomBetween(10, 15);
+    },
+    specialAttack() {
+      this.monsterHealth -= randomBetween(12, 18);
+      this.attackPlayer();
+      this.round++;
     }
   },
 
