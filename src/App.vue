@@ -61,19 +61,25 @@ export default defineComponent({
 
   watch: {
     playerHealth() {
-      if (this.playerHealth <= 0 && this.monsterHealth <= 0) {
-        this.state = "draw";
-      } else if (this.playerHealth <= 0) {
-        this.state = "lost"; 
+      if (this.playerHealth <= 0) {
+        this.playerHealth = 0;
+        if (this.monsterHealth <= 0) {
+          this.state = "draw";
+        } else {
+          this.state = "lost";
+        }
       }
     },
     monsterHealth() {
-      if (this.monsterHealth <= 0 && this.playerHealth <= 0) {
-        this.state = "draw";
-      } else if (this.monsterHealth <= 0) {
-        this.state = "won"; 
+      if (this.monsterHealth <= 0) {
+        this.monsterHealth = 0;
+        if (this.playerHealth <= 0) {
+          this.state = "draw";
+        } else {
+          this.state = "won";
+        }
       }
-    }
+    },
   },
 
   methods: {
