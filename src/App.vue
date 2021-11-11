@@ -38,7 +38,7 @@
       <div class="container bg-light text-center mt-5 w-75 rounded">
         <h3>Battle Log</h3>
         <ul class="list-unstyled">
-          <li v-for="(entry, i) in log" :key="i">{{ JSON.stringify(entry) }}</li>
+          <li v-for="(entry, i) in log" :key="i" v-html="entry.toString()"></li>
         </ul>
       </div>
     </div>
@@ -65,6 +65,20 @@ type GameData = {
 
 class LogEntry {
   constructor(readonly who: Entity, readonly what: Action, readonly value: number) {}
+
+  public toString(): string {
+    const entity = this.who === 'player' ? "Player" : "Monster";
+    const action = this.what === "attack" ? "attacks" : "heals";
+    if (this.what === "heal") {
+      var valueClass = "text-success";
+    } else if (this.who === "player") {
+      var valueClass = "text-primary";
+    } else {
+      var valueClass = "text-danger";
+    }
+
+    return `${entity} ${action} for <span class='${valueClass}'>${this.value}</span> damage!`
+  }
 }
 
 export default defineComponent({
