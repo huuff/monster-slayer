@@ -14,7 +14,7 @@
     </nav>
     <keep-alive>
       <the-resources v-if="this.activeTab === 'list'" :resources="resources"></the-resources>
-      <add-resource v-else-if="this.activeTab === 'add'"></add-resource>
+      <add-resource v-else-if="this.activeTab === 'add'" @addResource="addResource"></add-resource>
     </keep-alive>
   </div>
 </template>
@@ -50,6 +50,10 @@ export default defineComponent({
   methods: {
     setActiveTab(tab: Tab) {
       this.activeTab = tab;
+    },
+    addResource(resource: Resource) {
+      this.resources.push(resource);
+      this.activeTab = "list";
     },
   },
   components: {
