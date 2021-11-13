@@ -13,9 +13,14 @@
         >Add Resource</button>
     </nav>
     <keep-alive>
-      <the-resources v-if="this.activeTab === 'list'" :resources="resources"></the-resources>
-      <add-resource v-else-if="this.activeTab === 'add'" @addResource="addResource"></add-resource>
+      <the-resources 
+        v-if="activeTab === 'list'"
+        :resources="resources"
+        @delete-resource="deleteResource"
+        ></the-resources>
+      <add-resource v-else-if="activeTab === 'add'" @addResource="addResource"></add-resource>
     </keep-alive>
+    <p v-if="activeTab === 'list' && resources.length === 0" class="text-muted">There are no resources</p>
   </div>
 </template>
 
@@ -54,6 +59,9 @@ export default defineComponent({
     addResource(resource: Resource) {
       this.resources.push(resource);
       this.activeTab = "list";
+    },
+    deleteResource(id: string) {
+      this.resources = this.resources.filter(res => res.id !== id);
     },
   },
   components: {

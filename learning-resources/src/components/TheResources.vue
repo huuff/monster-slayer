@@ -2,7 +2,7 @@
   <main>
     <ul class="list-unstyled">
       <li v-for="resource in resources" :key="resource.id" class="my-2">
-        <base-resource :resource="resource"></base-resource>
+        <base-resource :resource="resource" @delete-resource="(id) => $emit('delete-resource', id)"></base-resource>
       </li>
     </ul>
   </main>
