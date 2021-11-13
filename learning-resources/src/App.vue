@@ -1,11 +1,13 @@
 <template>
   <the-resources :resources="resources"></the-resources>
+  <add-resource></add-resource>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Resource } from "./resource";
 import TheResources from "./components/TheResources.vue";
+import AddResource from "./components/AddResource.vue";
 
 export default defineComponent({
   name: 'App',
@@ -24,7 +26,7 @@ export default defineComponent({
     ], 
   } as { resources: Resource[] }),
   components: {
-    TheResources,
+    TheResources, AddResource,
   }
 });
 </script>
