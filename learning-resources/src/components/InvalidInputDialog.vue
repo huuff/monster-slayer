@@ -1,5 +1,5 @@
 <template>
-  <div class="" tabindex="-1">
+  <div style="position: fixed; width: 500px; height: 200px; top: 50%; left: 50%; margin-top: -100px; margin-left: -250px; " tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">

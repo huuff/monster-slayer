@@ -1,5 +1,7 @@
 <template>
-  <invalid-input-dialog v-if="invalidInput" @close-dialog="closeDialog"></invalid-input-dialog>
+  <teleport to="body">
+    <invalid-input-dialog v-if="invalidInput" @close-dialog="closeDialog"></invalid-input-dialog>
+  </teleport>
 
   <form @submit.prevent="addComponent">
     <div class="mb-3">

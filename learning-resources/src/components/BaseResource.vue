@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { Resource } from "../resource.ts";
+import { Resource } from "../resource";
 
 export default defineComponent({
   emits: [ "delete-resource" ],
