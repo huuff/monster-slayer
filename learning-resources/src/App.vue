@@ -1,6 +1,24 @@
 <template>
-  <the-resources :resources="resources"></the-resources>
-  <add-resource></add-resource>
+  <div class="container mt-5">
+    <nav class="nav nav-tabs">
+      <a 
+        class="nav-link" 
+        :class="{ active: this.activeTab === 'list' }" 
+        href="#"
+        @click="setActiveTab('list')"
+        >List Resources</a>
+      <a 
+        class="nav-link"
+        :class="{ active: this.activeTab === 'add'}"
+        href="#"
+        @click="setActiveTab('add')"
+        >Add Resource</a>
+    </nav>
+    <keep-alive>
+      <the-resources v-if="this.activeTab === 'list'" :resources="resources"></the-resources>
+      <add-resource v-else-if="this.activeTab === 'add'"></add-resource>
+    </keep-alive>
+  </div>
 </template>
 
 <script lang="ts">
@@ -8,6 +26,8 @@ import { defineComponent } from 'vue';
 import { Resource } from "./resource";
 import TheResources from "./components/TheResources.vue";
 import AddResource from "./components/AddResource.vue";
+
+type Tab = "list" | "add";
 
 export default defineComponent({
   name: 'App',
@@ -24,7 +44,16 @@ export default defineComponent({
         "https://google.com",
       ),
     ], 
-  } as { resources: Resource[] }),
+    activeTab: "list",
+  } as {
+    resources: Resource[];
+    activeTab: Tab;
+  }),
+  methods: {
+    setActiveTab(tab: Tab) {
+      this.activeTab = tab;
+    },
+  },
   components: {
     TheResources, AddResource,
   }
