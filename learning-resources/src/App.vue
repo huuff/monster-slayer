@@ -1,18 +1,16 @@
 <template>
   <div class="container mt-5">
     <nav class="nav nav-tabs">
-      <a 
+      <button 
         class="nav-link" 
         :class="{ active: this.activeTab === 'list' }" 
-        href="#"
         @click="setActiveTab('list')"
-        >List Resources</a>
-      <a 
+        >List Resources</button>
+      <button 
         class="nav-link"
         :class="{ active: this.activeTab === 'add'}"
-        href="#"
         @click="setActiveTab('add')"
-        >Add Resource</a>
+        >Add Resource</button>
     </nav>
     <keep-alive>
       <the-resources v-if="this.activeTab === 'list'" :resources="resources"></the-resources>
